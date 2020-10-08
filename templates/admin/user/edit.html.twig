@@ -1,0 +1,25 @@
+{% extends "admin/ad/base.html.twig" %}
+{% block title %}Gestion d'un utilisater{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1 class="alert alert-warning text-center">Modification de l'utilisateur n°{{ users.id }}</h1>
+        {{ form_start(form) }}
+        <div class="card alert-light">
+            <div class="card header">
+                <h4 class="card-title alert alert-info">
+                    Modification du l'utilisateur de :<br>
+                    {{ users.fullName}}<br>
+
+                </h4>
+                <div class="card-body">
+                    {{ form_widget(form) }}
+                    <button class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'admin/ad/base.html.twig' %}
+
+{% block title %}Administration des annonces !{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="my-5">Gestion des annonces</h1>
+        <table class="table table-hover table-dark">
+            <tr>
+                <th>Id</th>
+                <th class="text-center">Titre</th>
+                <th class="text-center">Auteur</th>
+                <th class="text-center">Note</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            <tbody>
+            {% for ad in  ad %}
+                <tr>
+                    <td>{{ ad.id }}</td>
+                    <td class="text-center">{{ ad.title }}</td>
+                    <td class="text-center"><img class="image_border avatar-mini mr-2" src="/usersimages/{{ ad.author.picture }}"
+                                                 alt="">{{ ad.author.fullName }}</td>
+                    <td class="text-center">
+                        <span class="badge badge-primary">{{ ad.author.achats | length }}</span>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ path('admin_ads_edit', {'id': ad.id }) }}" class="btn
+                        btn-primary"><i
+                                    class="fas fa-edit"></i></a>
+                        <a href="{{ path('admin_ads_delete', {'id' : ad.id }) }}"
+                           onclick="return confirm('Êtes-vous de sûr de vouloir supprimer cette nnonce ?');"
+                           class="btn btn-danger ml-1">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'admin/partials/pagination.html.twig' with {'route': 'admin_ad'} %}
+    </div>
+
+{% endblock %}

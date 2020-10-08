@@ -1,0 +1,28 @@
+{% extends "admin/ad/base.html.twig" %}
+{% block title %} Administration des commentaires {% endblock %}
+{% block body %}
+    <div class="container">
+        <h1 class="text-center ">Modification de commentaire n° {{ comments.id }}</h1>
+        {{ form_start(form) }}
+        <div class="card bg-light text-dark">
+            <div class="card-header">
+                <h4 class="card-title alert alert-info">Corriger le commentaire de : <br>
+                    {{ comments.author.fullName }} <br>
+                  Annonce liée à {{ comments.ad.title }} <br>
+                  Créée le {{ comments.createdAt | date('d/m/Y H:i') }} <br>
+                  Note donnée est {{ comments.note}}
+                </h4>
+                <div class="card-body">
+                    {{ form_widget(form) }}
+                    <button class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+

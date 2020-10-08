@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Annonces</h1>
+    <div class="ad-title text-success bg-white"
+         style="background-image: url('/uploads/{{ ads.image }}')">
+        <div class="container">
+            <h1>{{ ads.title }}</h1>
+            <p>{{ ads.introduction }}</p>
+            <p class="h2">
+                <strong>{{ ads.nombreAd }} </strong> article(s) pour <strong>{{ ads.price }}
+                    FCFA</strong>.
+            </p>
+            {% if app.user and app.user == ads.author %}
+                <p class="text-center"><a class="btn btn-outline-primary"
+                                          href="{{ path('annonces_edit', {'slug':ads.slug})
+                                          }}"><i class="fas fa-edit"></i></a>
+                </p>
+            {% else %}
+                <p class="text-center">
+                    <a class="btn btn-outline-primary"
+                       href="{{ path('achat', {'slug':ads.slug}) }}">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mb-3 text-justify">
+                {{ ads.content | raw }}
+                <div id="carouselExampleIndicators"
+                     class="carousel slide col-lg-9 col-md-8 col-sm-8" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% for image in ads.images %}
+                            <li data-target="#carouselExampleIndicators"
+                                data-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %}></li>
+                        {% endfor %}
+                    </ol>
+                    <div class="carousel-inner">
+                        {% for image in ads.images %}
+                            <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                <a href="/uploads/{{ image.url }}">
+                                    <img class="d-block w-100" src="/uploads/{{ image.url }}"
+                                         alt="first slide">
+                                </a>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ ads.title }}</h5>
+                                    <p>{{ image.description }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                       data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                       data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                {# fin corrousel#}
+                <hr class="alert-info">
+                {% if ads.comments | length > 0 %}
+                    <h2 class="mb-3">Commentaires de nos utilisateurs :</h2>
+                    {% for comment in ads.comments %}
+                        <div class="bg light rounded mb-3 py-3 px-3">
+                            <strong>{{ comment.author.fullName }} a dit :</strong>
+                            <blockquote>
+                                {{ comment.content }}
+                            </blockquote>
+                            <strong>Note donnée par {{ comment.author
+                                .fullName }} :</strong> {{ comment.note }}
+                            {% if ads.comments | length > 0 %}
+                                {% for comment in ads.comments %}
+                                    <Strong>Note : </Strong>{{ comment.note }}
+                                    {% for i in 1..5 %}
+                                        {% if i < comment.note %}
+                                            <i style="padding: unset; background: wheat" class="fa
+                                    fa-star"></i>
+                                        {% else %}
+                                            <i style="padding: unset;color: #d1ecf1" class="fa
+                                        fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <br>
+                                    <div class="alert-heading mt-3">
+                                        <span class="alert alert-info mt-3">Notes sur 5</span>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <h3 class="alert alert-info">
+                        Cette annonce n'a pas encore reçu de commentaires...
+                    </h3>
+
+                {% endif %}
+            </div>
+
+            <div class="col mt-5">
+                <div class="row mb-3 align-items-center">
+                    {% set a = ads.author %}
+                    <div class="col-4">
+                        <img class="image_border" src="/usersimages/{{ a.picture }}"
+                             alt="Image du vendeur" class="float-left mr-3">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3>{{ a.fullName }}</h3>
+                            <span class="badge badge-primary">{{ ads.nombreAd }} annonce(s)</span>
+                        </div>
+                    </div>
+                    <p>{{ a.presentation }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% if app.user and app.user == ads.author %}
+        <div class="row ml-5">
+            <div class="col-4">
+                <a class="btn bg-info" href="{{ path('annonces_index') }}">Go back</a>
+                <a class="btn btn-primary" href="{{ path('annonces_edit', {'slug': ads.slug}) }}">edit</a>
+                {{ include('annonces/_delete_form.html.twig') }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

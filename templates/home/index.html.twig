@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} HomePage {% endblock %}
+{% block body %}
+<div class="container text-dark py-3">
+    <div class="jumbotron text-justify">
+        <h3 class="text-center"> {{ content }} </h3>
+        <p class="lead">
+            Nous sommes une agence de publication d'annonces des concours dont les utilisateurs peuvent
+            poster des annonces de concours (pétanque, longue,tenis, etc) et de pouvoir effectuer des
+            recherches par département. Nous avons aussi un système de notification en place afin d’avertir
+            les utilisateurs de la présence d’un nouvel événement dans leur département.
+        </p>
+        <hr class="my-4">
+        <p>
+            Vous avez besoins de publier une annonce concernant un concours que souhaiter orginiser dans votre
+            département, alors n'hésitez plus ! Rendez-vous sur notre site internet dédié à ces genres
+            d'événement. C'est gratuit, sécurisé et flexibles.
+        </p>
+        <p>
+            Ou encore, vous voulez savoir les derniers ou prochains concours dans votre département, alors
+            connectez sur notre plateforme en savoir plus.
+        </p>
+        <p class="lead">
+            <p>Vous avez des doutes, cliquer ici pour</p>
+            <a class="btn btn-primary btn-lg" href="#ads" role="button"><i class="fas fa-info"></i></a>
+        </p>
+    </div>
+    <h2 class="text-info">Nos annonces stars</h2>
+    <div class="row mt-3">
+        {% for ad in ads | slice (0, 6) %}
+
+            <div class="col-md-4">
+                <div class="card badge-light mb-3">
+                    <div class="card-header text-center">
+                        {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }} FCFA</strong><br>
+                        {% if cmt.note | length > 0 %}
+                        {% for  commnt in cmt.note  %}
+                            <small>It y a {{ cmt.note | length }} notes
+                                laissées par les utilisateur</small>
+
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <a href="uploads/{{ ad.image }}">
+                    <img src="uploads/{{ ad.image }}" alt="Image du téléphone" style="width:100% ; height:250px ;display:block">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title">{{ ad.title }} </h4>
+                        <p class="card-text">{{ ad.introduction }}</p>
+                        <a class="btn btn-primary" href="{{ path('annonces_show', {'slug':ad.slug}) }}" role="button">
+                            <i class="fas fa-eye"></i></a>
+                        {% if app.user and app.user == ad.author %}
+                            <a class="btn btn-secondary" href="{{ path('annonces_edit', {'slug': ad.slug}) }}">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <h2 class="text-info">Nos vendeurs stars</h2>
+    <div class="row mt-3">
+        {% for ad in ads | slice (0, 6)%}
+            <div class="col-sm-4">
+                <div class="card border-secondary mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ ad.author.firstName }} {{ ad.author.lastName }}</h4>
+                        <hr>
+                        <div class="card-text">
+                            <img style="height: 60px; width: 15%; display: block" src="usersimages/{{ ad.author.picture }}" alt="Image du vendeur" class="float-left mr-3">
+                            <p>{{ ad.author.presentation }}!</p>
+                            <a class="btn btn-success float-right" href="{{ path('annonces_show', {'slug': ad.slug }) }}">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            {% if app.user and app.user == ad.author %}
+                                <a class="btn btn-primary float-right mr-1" href="{{ path
+                                    ('annonces_edit', {'slug': ad.slug}) }}">
+                                    <i class="fas fa-edit">
+                                    </i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

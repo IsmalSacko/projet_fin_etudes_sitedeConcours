@@ -1,0 +1,61 @@
+{% extends 'admin/ad/base.html.twig' %}
+
+{% block title %}Les utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid mt-2">
+        <h1 class="text-info text-center">Mes utilisateurs enregistrés</h1>
+
+        <table class="table table-hover table-dark">
+
+            <tr>
+                <th>Id</th>
+                <th>FullName</th>
+                <th>Email</th>
+                <th>Picture</th>
+                {#<th>Hash</th>#}
+                <th>Intro</th>
+                <th>Presentation</th>
+                <th>Slug</th>
+                <th>Updated_at</th>
+                <th>actions</th>
+            </tr>
+
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.fullName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <img class="image_border avatar-mini" src="/usersimages/{{ user.picture }}"
+                             alt="imade de l'utilisateur">
+                    </td>
+                    {# <td>{{ user.hash }}</td> #}
+                    <td>{{ user.intro }}</td>
+                    <td>{{ user.presentation }}</td>
+                    <td>{{ user.slug }}</td>
+                    <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a class="btn btn-primary"
+                           href="{{ path('admin_user_edit', {'id': user.id}) }}">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a class="btn btn-danger mt-2"
+                           href="{{ path('admin_user_delete', {'id': user.id}) }}">
+                            <i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% include 'admin/partials/pagination.html.twig' with {'route' : 'user_index'} %}
+
+        {#        <a class="btn btn-primary" href="{{ path('user_new') }}">Create new</a>#}
+    </div>
+{% endblock %}
+

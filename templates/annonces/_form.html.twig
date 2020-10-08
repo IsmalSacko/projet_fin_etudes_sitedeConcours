@@ -1,0 +1,25 @@
+
+{% block body %}
+    <div class="container m-auto">
+        {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_widget(form) }}
+        <p>
+            {% if app.request.attributes.get('_route') == 'annonces_edit' %}
+        <h3>Images</h3>
+        {% for image in ads.images %}
+          <p > <img class="image_border" src="{{ asset('/uploads/' ~ image.url) }}" alt="images" width="150"></p>
+        {% endfor %}
+        {% else %}
+            <p class="alert alert-warning"> Pas de photos !</p>
+        {% endif %}
+        </p>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="/js/images.js"></script>
+
+{% endblock %}
