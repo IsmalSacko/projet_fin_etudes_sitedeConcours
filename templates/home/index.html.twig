@@ -26,24 +26,25 @@
             <a class="btn btn-primary btn-lg" href="#ads" role="button"><i class="fas fa-info"></i></a>
         </p>
     </div>
-    <h2 class="text-info">Nos annonces stars</h2>
+    <h2 class="text-info">Nos événements stars</h2>
     <div class="row mt-3">
         {% for ad in ads | slice (0, 6) %}
 
             <div class="col-md-4">
                 <div class="card badge-light mb-3">
                     <div class="card-header text-center">
-                        {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }} FCFA</strong><br>
+                    {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }} &euro;</strong><br>
+                   {#
                         {% if cmt.note | length > 0 %}
                         {% for  commnt in cmt.note  %}
                             <small>It y a {{ cmt.note | length }} notes
                                 laissées par les utilisateur</small>
-
                         {% endfor %}
                         {% endif %}
+                    #}
                     </div>
                     <a href="uploads/{{ ad.image }}">
-                    <img src="uploads/{{ ad.image }}" alt="Image du téléphone" style="width:100% ; height:250px ;display:block">
+                    <img src="uploads/{{ ad.image }}" alt="Image l'annonce" style="width:100% ; height:250px ;display:block">
                     </a>
                     <div class="card-body">
                         <h4 class="card-title">{{ ad.title }} </h4>
@@ -60,7 +61,7 @@
             </div>
         {% endfor %}
     </div>
-    <h2 class="text-info">Nos vendeurs stars</h2>
+    <h2 class="text-info">Nos clients stars</h2>
     <div class="row mt-3">
         {% for ad in ads | slice (0, 6)%}
             <div class="col-sm-4">

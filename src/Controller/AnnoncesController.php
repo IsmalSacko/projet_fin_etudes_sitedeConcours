@@ -31,6 +31,7 @@ class AnnoncesController extends AbstractController
     {
         return $this->render('annonces/index.html.twig', [
             'ads' => $annoncesRepository->findAll(),
+
         ]);
     }
 

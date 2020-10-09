@@ -13,8 +13,8 @@
                 <div class="col-md-4">
                     <div class="card badge-light mb-3">
                         <div class="card-header text-center">
-                            {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }}
-                                FCFA</strong><br>
+                          {{ ad.nombreAd }} {{ ad.title }} avec un coup de participation
+                            <strong>{{ ad.price }} &euro;</strong> dans le departement de {{ ad.departement.departementNomUppercase }}<br>
                             <small>Pas encore noté</small>
                         </div>
                         <a href="{{ url }}">
@@ -29,7 +29,7 @@
                             <a class="btn btn-outline-primary"
                                href="{{ path('annonces_show', {'slug': ad.slug}) }} "><i
                                         class="fas fa-eye"></i></a>
-                            <a href="{{ path('achat',{'slug': ad.slug }) }}" class="btn btn-dark"><i class="fas fa-shopping-cart"></i></a>
+        {# <a href="{{ path('achat',{'slug': ad.slug }) }}" class="btn btn-dark"><i class="fas fa-shopping-cart"></i></a>#}
                             {% if app.user and app.user == ad.author %}
                                 <a class="btn btn-outline-info"
                                    href="{{ path('annonces_edit', {'slug': ad.slug}) }}">edit</a>

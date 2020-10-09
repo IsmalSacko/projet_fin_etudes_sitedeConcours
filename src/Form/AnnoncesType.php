@@ -39,6 +39,7 @@ class AnnoncesType extends AbstractType
                 'required' => false,
 
             ])
+            ->add('departement')
             ->add('adImages', FileType::class, [
 
                 'multiple' => true,

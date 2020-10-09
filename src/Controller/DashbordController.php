@@ -20,11 +20,9 @@ class DashbordController extends AbstractController
     {
         $users = $manager->createQuery("SELECT count(u) FROM App\Entity\User u")->getSingleScalarResult();
         $ads = $manager->createQuery("SELECT count(a) FROM App\Entity\Annonces a")->getSingleScalarResult();
-        $paniers = $manager->createQuery("SELECT count(p) FROM App\Entity\Achat p")->getSingleScalarResult();
-        $comments = $manager->createQuery("SELECT count(c) FROM App\Entity\Comment c")->getSingleScalarResult();
 
         return $this->render('admin/dashbord/index.html.twig', [
-            'stats' => compact( 'users','ads' ,'paniers','comments'  )
+            'stats' => compact( 'users','ads')
 
         ]);
     }

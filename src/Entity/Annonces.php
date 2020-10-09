@@ -78,12 +78,12 @@ class Annonces
      */
     private $author;
 
-
-
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="ad", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $comments;
+    private $departement;
+
 
 
     public function __construct()
@@ -103,18 +103,6 @@ class Annonces
             $slugify = new Slugify();
         $this->slug = $slugify->slugify($this->title);
         }
-    }
-
-    /**
-     * Permet de récupérer le commentaire d'un utilisateur
-     * @param User $user
-     * @return Comment|null
-     */
-    public function getCommentFromUser(User $user){
-        foreach ($this->comments as $comment){
-            if ($this->getAuthor()=== $this->author)return $comment;
-        }
-        return null;
     }
 
     public function getId(): ?int
@@ -251,44 +239,22 @@ class Annonces
     }
 
 
-
-
-
-
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getComments(): Collection
-    {
-        return $this->comments;
-    }
-
-    public function addComment(Comment $comment): self
-    {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setAd($this);
-        }
-
-        return $this;
-    }
-
-    public function removeComment(Comment $comment): self
-    {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getAd() === $this) {
-                $comment->setAd(null);
-            }
-        }
-
-        return $this;
-    }
-
 public function __toString()
 {
     return (string)$this->getSlug();
 }
+
+public function getDepartement(): ?Departement
+{
+    return $this->departement;
+}
+
+public function setDepartement(?Departement $departement): self
+{
+    $this->departement = $departement;
+
+    return $this;
+}
+
+
 }
