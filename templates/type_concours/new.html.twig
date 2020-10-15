@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeConcours{% endblock %}
+
+{% block body %}
+    <h1>Create new TypeConcours</h1>
+
+    {{ include('type_concours/_form.html.twig') }}
+
+    <a href="{{ path('type_concours_index') }}">back to list</a>
+{% endblock %}

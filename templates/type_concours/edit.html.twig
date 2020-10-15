@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeConcours{% endblock %}
+
+{% block body %}
+    <h1>Edit TypeConcours</h1>
+
+    {{ include('type_concours/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('type_concours_index') }}">back to list</a>
+
+    {{ include('type_concours/_delete_form.html.twig') }}
+{% endblock %}

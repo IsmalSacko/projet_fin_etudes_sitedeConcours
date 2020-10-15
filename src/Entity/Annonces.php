@@ -14,9 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=AnnoncesRepository::class)
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(
- *     fields={"title"}, message="Une autre annonce possède cet titre"
- * )
  *
  */
 class Annonces
@@ -40,16 +37,7 @@ class Annonces
      */
     private $slug;
 
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\Length(min=10, minMessage="Pas lpus de 10 caractères")
-     */
-    private $introduction;
 
     /**
      * @ORM\Column(type="text")
@@ -61,11 +49,6 @@ class Annonces
      * @ORM\Column(type="string", length=255)
      */
     private $image;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $nombreAd;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="annonces", orphanRemoval=true, cascade={"persist"})
@@ -84,6 +67,16 @@ class Annonces
      */
     private $departement;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TypeConcours::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $typeConcours;
 
     /**
      * Constructeur de notre classe
@@ -92,7 +85,6 @@ class Annonces
     {
         $this->images = new ArrayCollection();
 
-        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -136,29 +128,6 @@ class Annonces
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getIntroduction(): ?string
-    {
-        return $this->introduction;
-    }
-
-    public function setIntroduction(string $introduction): self
-    {
-        $this->introduction = $introduction;
-
-        return $this;
-    }
 
     public function getContent(): ?string
     {
@@ -184,17 +153,7 @@ class Annonces
         return $this;
     }
 
-    public function getNombreAd(): ?int
-    {
-        return $this->nombreAd;
-    }
 
-    public function setNombreAd(int $nombreAd): self
-    {
-        $this->nombreAd = $nombreAd;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Image[]
@@ -258,5 +217,28 @@ public function setDepartement(?Departement $departement): self
     return $this;
 }
 
+public function getCreatedAt(): ?\DateTimeInterface
+{
+    return $this->createdAt;
+}
+
+public function setCreatedAt(\DateTimeInterface $createdAt): self
+{
+    $this->createdAt = $createdAt;
+
+    return $this;
+}
+
+public function getTypeConcours(): ?TypeConcours
+{
+    return $this->typeConcours;
+}
+
+public function setTypeConcours(?TypeConcours $typeConcours): self
+{
+    $this->typeConcours = $typeConcours;
+
+    return $this;
+}
 
 }
