@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use function Symfony\Component\String\s;
 
 /**
+ * Notre classe principale 
  * @ORM\Entity(repositoryClass=DepartementRepository::class)
  */
 class Departement

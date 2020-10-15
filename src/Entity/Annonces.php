@@ -85,7 +85,9 @@ class Annonces
     private $departement;
 
 
-
+    /**
+     * Constructeur de notre classe
+     */
     public function __construct()
     {
         $this->images = new ArrayCollection();
