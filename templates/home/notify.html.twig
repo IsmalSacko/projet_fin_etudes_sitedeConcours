@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block title %} Notification{% endblock %}
+{% block body %}
+    <h1 class="text-center text-light">Bienvenue sur la page de notificaation !</h1>
+    <div class="bg-light text-dark ml-2 mr-2" id="bodi">
+        <p>Titre</p>
+        <p>Petite description</p>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/notify.js') }}"></script>
+{% endblock %}
+
+

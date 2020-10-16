@@ -27,4 +27,14 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route ("/notify", name="notify_index")
+     * @return Response
+     */
+    function notification() :Response{
+
+        return  $this->render('home/notify.html.twig');
+
+    }
+
 }

@@ -2,7 +2,7 @@
 
 {% block title %} HomePage {% endblock %}
 {% block body %}
-<div class="container text-dark py-3">
+<div class="container text-dark py-3" xmlns="http://www.w3.org/1999/html">
     <div class="jumbotron text-justify">
         <h3 class="text-center"> {{ content }} </h3>
         <p class="lead">
@@ -30,10 +30,17 @@
     <div class="row mt-3">
         {% for ad in ads | slice (0, 6) %}
 
-            <div class="col-md-4">
+            <div class="col-md-4 text-justify">
                 <div class="card badge-light mb-3">
                     <div class="card-header text-center">
-                    {{ ad.nombreAd }} {{ ad.title }}, <strong>{{ ad.price }} &euro;</strong><br>
+                        <p class="text-justify">
+                        {{ ad.title }} Dans le département de <strong>{{ ad.departement | upper}}</strong>
+                        prévu le <span class="text-danger"> <strong>{{ ad.createdAt |date('d/m/Y à I:m') }}</strong></span>
+                            ,type de concours :{{  ad.typeConcours }}
+
+                        </p>
+
+
                    {#
                         {% if cmt.note | length > 0 %}
                         {% for  commnt in cmt.note  %}
@@ -44,11 +51,11 @@
                     #}
                     </div>
                     <a href="uploads/{{ ad.image }}">
-                    <img src="uploads/{{ ad.image }}" alt="Image l'annonce" style="width:100% ; height:250px ;display:block">
+                    <img src="{{ ad.image }}" alt="Image l'annonce" style="width:100% ; height:250px ;display:block">
                     </a>
                     <div class="card-body">
-                        <h4 class="card-title">{{ ad.title }} </h4>
-                        <p class="card-text">{{ ad.introduction }}</p>
+                        <h4 class="card-title">{{ ad.title | raw }} </h4>
+                        <p class="card-text">{{ ad.content | raw }}</p>
                         <a class="btn btn-primary" href="{{ path('annonces_show', {'slug':ad.slug}) }}" role="button">
                             <i class="fas fa-eye"></i></a>
                         {% if app.user and app.user == ad.author %}
@@ -69,9 +76,9 @@
                     <div class="card-body">
                         <h4 class="card-title">{{ ad.author.firstName }} {{ ad.author.lastName }}</h4>
                         <hr>
-                        <div class="card-text">
+                        <div class="card-text text-justify">
                             <img style="height: 60px; width: 15%; display: block" src="usersimages/{{ ad.author.picture }}" alt="Image du vendeur" class="float-left mr-3">
-                            <p>{{ ad.author.presentation }}!</p>
+                            <p>{{ ad.author.presentation | raw }} !</p>
                             <a class="btn btn-success float-right" href="{{ path('annonces_show', {'slug': ad.slug }) }}">
                                 <i class="fas fa-eye"></i>
                             </a>

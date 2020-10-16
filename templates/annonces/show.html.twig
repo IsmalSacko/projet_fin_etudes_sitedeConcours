@@ -8,9 +8,9 @@
          style="background-image: url('/uploads/{{ ads.image }}')">
         <div class="container">
             <h1>{{ ads.title }}</h1>
-            <p>{{ ads.introduction }}</p>
+            <p>{{ ads.content | raw }}</p>
             <p class="h2">
-                <strong>{{ ads.nombreAd }} </strong> article(s) pour <strong>{{ ads.price }}
+                <strong>{{ ads.departement }} </strong> prévu pour <strong>{{ ads.createdAt | date('d/m/Y à I:m') }} }}
                     FCFA</strong>.
             </p>
             {% if app.user and app.user == ads.author %}
@@ -21,7 +21,7 @@
             {% else %}
                 <p class="text-center">
                     <a class="btn btn-outline-primary"
-                       href="{{ path('achat', {'slug':ads.slug}) }}">
+{#                       href="{{ path('achat', {'slug':ads.slug}) }}">#}
                         <i class="fas fa-shopping-cart"></i>
                     </a>
                 </p>
@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="col">
                             <h3>{{ a.fullName }}</h3>
-                            <span class="badge badge-primary">{{ ads.nombreAd }} annonce(s)</span>
+                            <span class="badge badge-primary">{{ ads.id | length }} annonce(s)</span>
                         </div>
                     </div>
                     <p>{{ a.presentation }}</p>
