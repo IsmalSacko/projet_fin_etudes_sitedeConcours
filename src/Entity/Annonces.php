@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Notre classe principale qui gère toutes les annonces mises en ligne.
  * @ORM\Entity(repositoryClass=AnnoncesRepository::class)
  * @ORM\HasLifecycleCallbacks()
  *
@@ -33,6 +34,7 @@ class Annonces
     private $title;
 
     /**
+     * Le slug ici permet de transformer le titre d'une annonce en slug et c'est automatique.
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
@@ -56,12 +58,14 @@ class Annonces
     private $images;
 
     /**
+     * Cette propriété permet de savoir qui est l'auteur d'une annonce publiée sur le site.
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
+     * IL s'agit du département dans lequel une annonce se déroule ou va dérouler
      * @ORM\ManyToOne(targetEntity=Departement::class, inversedBy="annonces")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -73,13 +77,14 @@ class Annonces
     private $createdAt;
 
     /**
+     * Permet de choisir un type de concours parmi une liste déjà disponible.
      * @ORM\ManyToOne(targetEntity=TypeConcours::class, inversedBy="annonces")
      * @ORM\JoinColumn(nullable=false)
      */
     private $typeConcours;
 
     /**
-     * Constructeur de notre classe
+     * Constructeur de notre classe par défaut.
      */
     public function __construct()
     {
