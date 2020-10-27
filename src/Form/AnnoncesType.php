@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Annonces;
 use App\Entity\Departement;
+use App\Entity\Regions;
 use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -61,6 +62,9 @@ class AnnoncesType extends AbstractType
                     'placeholder'=>'Selectionner 1 ou plusieurs pour photos affiche (4 max) !',
                 ]
 
+            ])
+            ->add('region', EntityType::class,[
+                'class' => Regions::class,
             ])
             ->add('departement',EntityType::class,[
                  'class'=> Departement::class,

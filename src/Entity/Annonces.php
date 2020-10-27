@@ -84,6 +84,11 @@ class Annonces
     private $typeConcours;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Regions::class, inversedBy="annonces")
+     */
+    private $region;
+
+    /**
      * Constructeur de notre classe par défaut.
      */
     public function __construct()
@@ -242,6 +247,18 @@ public function getTypeConcours(): ?TypeConcours
 public function setTypeConcours(?TypeConcours $typeConcours): self
 {
     $this->typeConcours = $typeConcours;
+
+    return $this;
+}
+
+public function getRegion(): ?Regions
+{
+    return $this->region;
+}
+
+public function setRegion(?Regions $region): self
+{
+    $this->region = $region;
 
     return $this;
 }

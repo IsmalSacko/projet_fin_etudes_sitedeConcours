@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Annonces;
 use App\Entity\Departement;
+use App\Entity\Regions;
 use App\Entity\Role;
 use App\Entity\TypeConcours;
 use App\Entity\User;
@@ -86,6 +87,17 @@ class AppFixtures extends Fixture
             $manager->persist($departement);
             $departs []=  $departement;
         }
+        for($r=0; $r<=10; $r++){
+            //$code = $faker->postcode;
+
+            $region = new Regions();
+            $region->setCode($faker->postcode)
+                    ->setName($faker->city())
+                ->setSlug($faker->city());
+            $manager->persist($region);
+            $regions []=  $region;
+        }
+
         for ($j=0; $j<=20; $j++){
             $ad = new Annonces();
             $content = '<p>'.join('<p></p>', $faker->paragraphs(4));'</p>';
@@ -94,11 +106,13 @@ class AppFixtures extends Fixture
             $user = $users[mt_rand(0, count($users) - 1)];
             $conc = $concs[mt_rand(0, count($concs) - 1)];
             $depart = $departs[mt_rand(0, count($departs) - 1)];
+            $regs = $regions[mt_rand(0, count($regions) - 1)];
             $ad->setTitle($faker->sentence())
                 ->setTypeConcours($conc)
                 ->setContent($content)
                 ->setAuthor($user)
                 ->setImage($faker->imageUrl(500, 500))
+                ->setRegion($regs)
                 ->setDepartement($depart)
                 ->setCreatedAt($faker->dateTime("now"));
             $manager->persist($ad);

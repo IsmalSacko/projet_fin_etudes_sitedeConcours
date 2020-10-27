@@ -10,17 +10,17 @@
             <h1>{{ ads.title }}</h1>
             <p>{{ ads.content | raw }}</p>
             <p class="h2">
-                <strong>{{ ads.departement }} </strong> prévu pour <strong>{{ ads.createdAt | date('d/m/Y à I:m') }} }}
-                    FCFA</strong>.
+                <strong>{{ ads.departement.departementNomUppercase }}</strong>
+                prévu pour <strong>{{ ads.createdAt | date('d/m/Y à I:m') }}</strong>.
             </p>
             {% if app.user and app.user == ads.author %}
                 <p class="text-center"><a class="btn btn-outline-primary"
-                                          href="{{ path('annonces_edit', {'slug':ads.slug})
-                                          }}"><i class="fas fa-edit"></i></a>
+                href="{{ path('annonces_edit', {'slug':ads.slug})}}">
+                        <i class="fas fa-edit"></i></a>
                 </p>
             {% else %}
                 <p class="text-center">
-                    <a class="btn btn-outline-primary"
+                    <a class="btn btn-outline-primary">
 {#                       href="{{ path('achat', {'slug':ads.slug}) }}">#}
                         <i class="fas fa-shopping-cart"></i>
                     </a>

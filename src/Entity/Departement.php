@@ -147,7 +147,7 @@ class Departement
     }
     public function __toString()
     {
-        return (string)$this->departement_nom_uppercase;
+        return (string)$this->departement_nom_soundex;
     }
 
     /**
