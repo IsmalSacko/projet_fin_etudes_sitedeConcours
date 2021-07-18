@@ -49,7 +49,7 @@
                                 </a>
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>{{ ads.title }}</h5>
-                                    <p>{{ image.description }}</p>
+                                    <p>{{ image.description | raw}}</p>
                                 </div>
                             </div>
                         {% endfor %}
@@ -84,7 +84,7 @@
                             <span class="badge badge-primary">{{ ads.id | length }} annonce(s)</span>
                         </div>
                     </div>
-                    <p>{{ a.presentation }}</p>
+                    <p>{{ a.presentation | raw}}</p>
                 </div>
             </div>
 
