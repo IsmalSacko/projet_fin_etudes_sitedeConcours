@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\Annonces;
 
 use App\Repository\AnnoncesRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -28,12 +29,26 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route ("/notify", name="notify_index")
+     * @Route ("/contact", name="contact_index")
      * @return Response
      */
-    function notification() :Response{
+    function contact(Request $request) :Response{
+      
+        
+        $to      = 'ismalsacko@gmail.com';
+        $subject = $request->get('sujet');
+        $message = $request->get('message');
 
-        return  $this->render('home/notify.html.twig');
+        $headers = array(
+            'From' => $request->get('email'),
+            'Reply-To' => $request->get('email'),
+            'Nom' => $request->get('nom')
+            
+        );
+
+mail($to, $subject, $message, $headers);
+
+        return  $this->render('home/contact.html.twig');
 
     }
 
